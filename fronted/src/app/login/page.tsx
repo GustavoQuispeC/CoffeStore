@@ -1,5 +1,5 @@
-import React from 'react';
-import backgroundImage from '../../../public/hermoso-jardin-fresas-amanecer-doi-ang-khang-chiang-mai-tailandia.jpg'; 
+
+
 
 const Login = () => {
   return (
@@ -7,24 +7,25 @@ const Login = () => {
       className="flex justify-center items-center font-sans h-full min-h-screen p-4"
       style={{
         backgroundImage: `url("/hermoso-jardin-fresas-amanecer-doi-ang-khang-chiang-mai-tailandia.jpg")`,
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover'
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
       }}
     >
       <div className="font-sans max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 items-center gap-8 h-full">
           <form className="max-w-lg w-full p-6 bg-opacity-70 bg-white rounded-2xl shadow-[0_2px_16px_-3px_rgba(6,81,237,0.3)] flex flex-col justify-center">
             <div className="mb-12">
-              <h3 className="text-gray-800 text-4xl font-extrabold">
+              <h3 className="text-gray-800 text-4xl font-extrabold animate-fade-down animate-once">
                 Iniciar sesión
               </h3>
-              <p className="text-gray-800 text-sm mt-6">
-                Vive una <b>EXPERIENCIA</b> distinta. ¡Regístrate y disfruta de los mejores productos!
+              <p className="text-gray-800 text-sm mt-6 animate-fade animate-once">
+                Vive una <b>EXPERIENCIA</b> distinta. ¡Regístrate y disfruta de
+                los mejores productos!
               </p>
             </div>
 
             <div>
-              <label className="text-gray-800 text-[15px] mb-2 block">
+              <label className="text-gray-800 font-semibold text-[15px] mb-2 block">
                 Correo
               </label>
               <div className="relative flex items-center">
@@ -32,7 +33,7 @@ const Login = () => {
                   name="email"
                   type="text"
                   required
-                  className="w-full text-sm text-gray-800 bg-gray-100 focus:bg-transparent px-4 py-3.5 rounded-md outline-blue-600"
+                  className="w-full text-sm text-gray-800 bg-gray-100 focus:bg-transparent px-4 py-3.5 rounded-md outline-green-700"
                   placeholder="Ingrese correo"
                 />
                 <svg
@@ -68,7 +69,7 @@ const Login = () => {
             </div>
 
             <div className="mt-4">
-              <label className="text-gray-800 text-[15px] mb-2 block">
+              <label className="text-gray-800 font-semibold text-[15px]  mb-2 block">
                 Contraseña
               </label>
               <div className="relative flex items-center">
@@ -76,7 +77,7 @@ const Login = () => {
                   name="password"
                   type="password"
                   required
-                  className="w-full text-sm text-gray-800 bg-gray-100 focus:bg-transparent px-4 py-3.5 rounded-md outline-blue-600"
+                  className="w-full text-sm text-gray-800 bg-gray-100 focus:bg-transparent px-4 py-3.5 rounded-md outline-green-700"
                   placeholder="Ingrese contraseña"
                 />
                 <svg
@@ -100,7 +101,7 @@ const Login = () => {
                   id="remember-me"
                   name="remember-me"
                   type="checkbox"
-                  className="shrink-0 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded-md"
+                  className="shrink-0 h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded-md"
                 />
                 <label
                   htmlFor="remember-me"
@@ -112,7 +113,7 @@ const Login = () => {
               <div className="text-sm">
                 <a
                   href="jajvascript:void(0);"
-                  className="text-blue-600 font-semibold hover:underline"
+                  className="text-green-00 font-semibold hover:underline"
                 >
                   ¿Olvidaste tu contraseña?
                 </a>
@@ -122,16 +123,16 @@ const Login = () => {
             <div className="mt-8">
               <button
                 type="button"
-                className="w-full shadow-xl py-3 px-6 text-sm tracking-wide font-semibold rounded-md text-white bg-green-800 hover:bg-green-900 focus:outline-none"
+                className="w-full shadow-xl py-3 px-6 text-sm tracking-wide font-semibold rounded-md text-white bg-green-800 hover:bg-green-900 focus:outline-none animate-bounce animate-thrice"
               >
                 Iniciar sesión
               </button>
             </div>
-            <p className="text-sm mt-8 text-center text-gray-800">
+            <p className="text-sm mt-8 text-center font-semibold text-gray-800">
               ¿No tienes cuenta?{" "}
               <a
-                href="#"
-                className="text-green-700 font-semibold tracking-wide hover:underline ml-1"
+                href="/user"
+                className="text-green-600 font-bold tracking-wide hover:underline ml-1"
               >
                 Regístrate Aquí
               </a>
