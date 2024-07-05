@@ -1,6 +1,6 @@
 import React from "react";
 
-const Form = () => {
+const RegisterUser = () => {
   return (
     <div
       className="flex justify-center items-center font-sans h-full min-h-screen p-4"
@@ -144,4 +144,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default RegisterUser;
