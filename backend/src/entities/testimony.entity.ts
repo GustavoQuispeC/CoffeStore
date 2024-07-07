@@ -17,7 +17,4 @@ export class Testimony {
   @Column({ type: 'int', nullable: true })
   punctuation: number;
 
-  // Relación muchos a uno con User
-//   @ManyToOne(() => User, (user) => user.testimonies)
-//   user: User;
 }
