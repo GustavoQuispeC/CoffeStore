@@ -4,8 +4,19 @@ import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import typeOrmConfig from './config/typeorm';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ProductsModule } from './modules/products/products.module';
+import { PreloadService } from './preload/preload.service';
+import { Category } from './entities/category.entity';
+import { Product } from './entities/products/product.entity';
+
 import { UsersModule } from './modules/users/users.module';
 import { Users } from './entities/users.entity';
+import { Coffee } from './entities/products/product-coffee.entity';
+import { Mate } from './entities/products/product-mate.entity';
+import { Endulzante } from './entities/products/product-endulzante.entity';
+import {Te} from './entities/products/product-te.entity'
+import { Chocolate } from './entities/products/product-chocolate.entity';
+import { Accesorio } from './entities/products/product-accesorio.entity';
 
 @Module({
   imports: [
@@ -19,10 +30,12 @@ import { Users } from './entities/users.entity';
       useFactory: (ConfigService: ConfigService) =>
         ConfigService.get('typeorm'),
     }),
-    TypeOrmModule.forFeature([Users]),
+    TypeOrmModule.forFeature([Product,Category,Users,Coffee,Mate,Endulzante,Chocolate,Te,Accesorio])
+    ,
     UsersModule,
+    ProductsModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, PreloadService],
 })
 export class AppModule {}
