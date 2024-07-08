@@ -4,6 +4,11 @@ import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import typeOrmConfig from './config/typeorm';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ProductsModule } from './modules/products/products.module';
+import { PreloadService } from './preload/preload.service';
+import { Category } from './entities/category.entity';
+import { Product } from './entities/products/product.entity';
+
 
 @Module({
   imports: [
@@ -17,8 +22,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       useFactory: (ConfigService: ConfigService) =>
         ConfigService.get('typeorm'),
     }),
+    TypeOrmModule.forFeature([Category,Product]),
+    ProductsModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, PreloadService],
 })
 export class AppModule {}
