@@ -18,9 +18,12 @@ export class ProductsService {
             {
                 where:{
                     isDeleted:false
+                },
+                relations:{
+                    category:true
                 }
             }
-        );
+        ); 
     }
 
     async getAvailable(){
