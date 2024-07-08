@@ -1,0 +1,18 @@
+[
+    {
+        "article_id": 100,
+        "description": "Capsulas Esmeraldax10",
+        "imgUrl" :"-",
+        "price" : 4630,
+        "stock": 13,
+        "category":"endulzante"
+    },
+    {
+        "article_id": 1001,
+        "description": "Capsulas Esmeraldax10_Rubia",
+        "imgUrl" :"-",
+        "price" : 140000,
+        "stock": 113,
+        "category":"endulzante"
+    }
+]

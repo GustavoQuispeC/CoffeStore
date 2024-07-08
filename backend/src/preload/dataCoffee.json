@@ -1,0 +1,18 @@
+[
+    {
+        "article_id": 1,
+        "description": "Cafe Santos",
+        "imgUrl" :"-",
+        "price" : 23000,
+        "stock": 23,
+        "category":"coffee"
+    },
+    {
+        "article_id": 2,
+        "description": "Cafe Mezcla",
+        "imgUrl" :"-",
+        "price" : 80000,
+        "stock": 23,
+        "category":"coffee"
+    }
+]
