@@ -24,6 +24,10 @@ import { Users } from './entities/users.entity';
       useFactory: (ConfigService: ConfigService) =>
         ConfigService.get('typeorm'),
     }),
+    TypeOrmModule.forFeature([Product,Category,Users])
+    ,
+    UsersModule,
+    ProductsModule
   ],
   controllers: [AppController],
   providers: [AppService, PreloadService],
