@@ -1,0 +1,67 @@
+[
+    {
+        "article_id": 1,
+        "description": "Cafe Santos",
+        "imgUrl" :"https://www.google.com/url?sa=i&url=https%3A%2F%2Fmercadodecafes.com%2Fproducts%2Fbola-de-oro-descafeinado-cavebo005&psig=AOvVaw0XO-XJcI1cYBYRk3i88jOe&ust=1720381863582000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCMjF9sOYk4cDFQAAAAAdAAAAABAE",
+        "price" : 23000,
+        "stock": 23,
+        "category":"coffee"
+    },
+    {
+        "article_id": 2,
+        "description": "Cafe Mezcla",
+        "imgUrl" :"https://www.google.com/url?sa=i&url=https%3A%2F%2Fmercadodecafes.com%2Fproducts%2Fbola-de-oro-descafeinado-cavebo005&psig=AOvVaw0XO-XJcI1cYBYRk3i88jOe&ust=1720381863582000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCMjF9sOYk4cDFQAAAAAdAAAAABAE",
+        "price" : 80000,
+        "stock": 23,
+        "category":"coffee"
+    },
+    {
+        "article_id": 100,
+        "description": "Capsulas Esmeraldax10",
+        "imgUrl" :"https://www.google.com/url?sa=i&url=https%3A%2F%2Fmercadodecafes.com%2Fproducts%2Fbola-de-oro-descafeinado-cavebo005&psig=AOvVaw0XO-XJcI1cYBYRk3i88jOe&ust=1720381863582000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCMjF9sOYk4cDFQAAAAAdAAAAABAE",
+        "price" : 4630,
+        "stock": 13,
+        "category":"endulzante"
+    },
+    {
+        "article_id": 1001,
+        "description": "Capsulas Esmeraldax10_Rubia",
+        "imgUrl" :"https://www.google.com/url?sa=i&url=https%3A%2F%2Fmercadodecafes.com%2Fproducts%2Fbola-de-oro-descafeinado-cavebo005&psig=AOvVaw0XO-XJcI1cYBYRk3i88jOe&ust=1720381863582000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCMjF9sOYk4cDFQAAAAAdAAAAABAE",
+        "price" : 140000,
+        "stock": 113,
+        "category":"endulzante"
+    },
+    {
+        "article_id": 82,
+        "description": "Chocolate x 50 MAPSA",
+        "imgUrl" :"https://www.google.com/url?sa=i&url=https%3A%2F%2Fmercadodecafes.com%2Fproducts%2Fbola-de-oro-descafeinado-cavebo005&psig=AOvVaw0XO-XJcI1cYBYRk3i88jOe&ust=1720381863582000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCMjF9sOYk4cDFQAAAAAdAAAAABAE",
+        "price" : 200000,
+        "stock": 113,
+        "category":"chocolate"
+    },
+    {
+        "article_id": 27,
+        "description": "Mate x 50",
+        "imgUrl" :"https://www.google.com/url?sa=i&url=https%3A%2F%2Fmercadodecafes.com%2Fproducts%2Fbola-de-oro-descafeinado-cavebo005&psig=AOvVaw0XO-XJcI1cYBYRk3i88jOe&ust=1720381863582000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCMjF9sOYk4cDFQAAAAAdAAAAABAE",
+        "price" : 3000,
+        "stock": 54,
+        "category":"mate"
+    },
+    {
+        "article_id": 27,
+        "description": "Te x 100 saquitos Green Hills",
+        "imgUrl" :"https://www.google.com/url?sa=i&url=https%3A%2F%2Fmercadodecafes.com%2Fproducts%2Fbola-de-oro-descafeinado-cavebo005&psig=AOvVaw0XO-XJcI1cYBYRk3i88jOe&ust=1720381863582000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCMjF9sOYk4cDFQAAAAAdAAAAABAE",
+        "price" : 3000,
+        "stock": 84,
+        "category":"te"
+    },
+    {
+        "article_id": 156,
+        "description": "Portasobres",
+        "imgUrl" :"https://www.google.com/url?sa=i&url=https%3A%2F%2Fmercadodecafes.com%2Fproducts%2Fbola-de-oro-descafeinado-cavebo005&psig=AOvVaw0XO-XJcI1cYBYRk3i88jOe&ust=1720381863582000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCMjF9sOYk4cDFQAAAAAdAAAAABAE",
+        "price" : 2500,
+        "stock": 92,
+        "category":"accesorio"
+    }
+    
+]
