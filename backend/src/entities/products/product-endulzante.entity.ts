@@ -1,7 +1,8 @@
-import { ChildEntity } from "typeorm";
+import { ChildEntity, Column } from "typeorm";
 import { Product } from "./product.entity";
 
-@ChildEntity({name:"endulzantes"})
+@ChildEntity()
 export class Endulzante extends Product{
-
+    @Column()
+    ok_endulzante:boolean
 }
