@@ -8,9 +8,8 @@ import { ProductsModule } from './modules/products/products.module';
 import { PreloadService } from './preload/preload.service';
 import { Category } from './entities/category.entity';
 import { Product } from './entities/products/product.entity';
-
+import { User } from 'src/entities/user.entity';
 import { UsersModule } from './modules/users/users.module';
-import { Users } from './entities/users.entity';
 import { Coffee } from './entities/products/product-coffee.entity';
 import { Mate } from './entities/products/product-mate.entity';
 import { Endulzante } from './entities/products/product-endulzante.entity';
@@ -30,7 +29,7 @@ import { Accesorio } from './entities/products/product-accesorio.entity';
       useFactory: (ConfigService: ConfigService) =>
         ConfigService.get('typeorm'),
     }),
-    TypeOrmModule.forFeature([Product,Category,Users,Coffee,Mate,Endulzante,Chocolate,Te,Accesorio])
+    TypeOrmModule.forFeature([Product,Category,User,Coffee,Mate,Endulzante,Chocolate,Te,Accesorio])
     ,
     UsersModule,
     ProductsModule
