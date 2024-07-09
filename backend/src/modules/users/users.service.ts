@@ -1,57 +1,60 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Users } from "src/entities/users.entity";
-import { Repository } from "typeorm";
+import { Injectable, NotFoundException, ConflictException} from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { UserDTO } from 'src/dto/users.dto';
+import { User } from 'src/entities/user.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class UsersService {
     constructor(
-        @InjectRepository(Users) private usersRepository: Repository<Users>,) {}
+    @InjectRepository(User) private userRepository: Repository<User>,
+    ) {}
 
-        async usersFindAll(): Promise<Users[]> {
-            try {
-                return await this.usersRepository.find();
-            } catch (error) {
-                throw new Error(`Error while fetching users: ${error.message}`);
-            }
-            
-        }
+    async signUp(userDTO: UserDTO): Promise<User> {
+    const { email } = userDTO;
 
-        async userFindOne(id: string): Promise<Users | undefined> {
-            try {
-                return await this.usersRepository.findOne({ where: { id } });
-            } catch (error) {
-                throw new NotFoundException(`User with ID ${id} not found`)
-            }
-        }
+    const existingUser = await this.userRepository.findOne({
+        where: { email },
+    });
+    if (existingUser) {
+        throw new ConflictException('El usuario ya existe');
+    }
 
-        async createUser(user: Users): Promise<Users> {
-            try {
-                return await this.usersRepository.save(user);
-            } catch (error) {
-                throw new Error(`Error while creating user: ${error.message}`);
-            }
-        }
+    const newUser = this.userRepository.create(userDTO);
+    return await this.userRepository.save(newUser);
+    }
 
-        async updateUser(id: string, update: Partial<Users>): Promise<Users>{
-            try {
-                await this.usersRepository.update(id, update);
-                return await this.usersRepository.findOne({ where: { id } })
-            } catch (error) {
-                throw new Error(`Error while updating user: ${error.message}`);
-            }
-            
-        }
+    async signIn(email: string, password: string): Promise<User | undefined> {
+    const user = await this.userRepository.findOne({ where: { email } });
 
-        async deleteUsers(id: string): Promise<void> {
-            try {
-                const result = await this.usersRepository.delete(id)
-                if(result.affected === 0) {
-                    throw new NotFoundException(`User with ID ${id} not found`)
-                }
-            } catch (error) {
-                throw new Error(`Error while deleting user: ${error.message}`)
-            }
-            
+    if (!user) {
+        throw new NotFoundException('Usuario no encontrado');
+    }
+
+    if (user.password && user.password === password) {
+        return user;
+    }
+
+    if (!user.password) {
+        return user;
+    }
+
+    throw new NotFoundException('Credenciales inválidas');
+    }
+
+    async getUserById(id: string): Promise<User | undefined> {
+    return await this.userRepository.findOne({ where: { id } });
+    }
+
+    async updateUser(id: string, userDTO: Partial<UserDTO>): Promise<User | undefined> {
+    await this.userRepository.update(id, userDTO);
+    return await this.userRepository.findOne({ where: { id } });
+    }
+
+    async deleteUser(id: string): Promise<void> {
+    const result = await this.userRepository.delete(id);
+    if (result.affected === 0) {
+        throw new NotFoundException(`Usuario con ID ${id} no encontrado`);
         }
+    }
 }

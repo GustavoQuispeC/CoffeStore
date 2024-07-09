@@ -1,34 +1,40 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
-import { UsersService } from "./users.service";
-import { Users } from "src/entities/users.entity";
+import {Controller, Post, Body, Get, Param, Put, Delete } from '@nestjs/common';
+import { UsersService } from './users.service';
+import { User } from 'src/entities/user.entity';
+import { UserDTO } from 'src/dto/users.dto';
 
 @Controller('users')
 export class UsersController {
     constructor(private readonly usersService: UsersService) {}
 
-    @Get()
-    usersFindAll(): Promise<Users[]>{
-        return this.usersService.usersFindAll();
-    }
+@Post('signup')
+async signUp(@Body() userDTO: UserDTO): Promise<User> {
+    return await this.usersService.signUp(userDTO);
+}
 
-    @Get()
-    userFindOne(@Param('id') id: string): Promise<Users | undefined> {
-        return this.usersService.userFindOne(id);
-    }
+@Post('signin')
+async signIn(
+    @Body('email') email: string,
+    @Body('password') password: string,
+): Promise<User | undefined> {
+    return await this.usersService.signIn(email, password);
+}
 
-    @Post()
-    createUser(@Body() user: Users): Promise<Users> {
-        return this.usersService.createUser(user);
-    }
+@Get(':id')
+async getUserById(@Param('id') id: string): Promise<User | undefined> {
+    return await this.usersService.getUserById(id);
+}
 
-    @Put(':id')
-    updateUser(@Param('id') id:string, @Body() update: Partial<Users>): Promise<Users | undefined> {
-        return this.usersService.updateUser(id, update);
-    }
+@Put(':id')
+async updateUser(
+    @Param('id') id: string,
+    @Body() userDTO: Partial<UserDTO>,
+): Promise<User | undefined> {
+    return await this.usersService.updateUser(id, userDTO);
+}
 
-    @Delete(':id')
-    deleteUsers(@Param('id') id: string): Promise<void> {
-        return this.usersService.deleteUsers(id);
+@Delete(':id')
+async deleteUser(@Param('id') id: string): Promise<void> {
+    return await this.usersService.deleteUser(id);
     }
-
 }
