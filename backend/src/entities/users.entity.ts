@@ -1,5 +1,6 @@
 import { Role } from "src/enum/roles.enum";
-import { Column, Entity, PrimaryGeneratedColumn, TableInheritance } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn, TableInheritance } from "typeorm";
+import { Testimony } from "./testimony.entity";
 
 @Entity({ name: 'users' })
 @TableInheritance({column: { type: "varchar", name: "type"}})
@@ -22,5 +23,7 @@ export abstract class Users {
     @Column({default: false})
     isDeleted: boolean;
 
+    @OneToMany(() => Testimony, testimony => testimony.user)
+    testimonies: Testimony[];
 
 }
