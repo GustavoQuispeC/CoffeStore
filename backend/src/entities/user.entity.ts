@@ -1,5 +1,7 @@
 import { Role } from "src/enum/roles.enum";
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Testimony } from "./testimony.entity";
+import { Order } from "./order.entity";
 
 @Entity({ name: 'users'})
 export class User extends BaseEntity {
@@ -26,4 +28,12 @@ export class User extends BaseEntity {
 
   @Column({ default: false })
   isDeleted: boolean;
+
+  @OneToMany(() => Order, (order) => order.user)
+  @JoinColumn({name:'orderId'})
+  orders: Order[]
+
+  @OneToMany(() => Testimony, testimony => testimony.user)
+  testimonies: Testimony[];
+
 }

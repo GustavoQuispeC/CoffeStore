@@ -11,12 +11,14 @@ import * as dataMate from './dataMate.json'
 import * as dataTe from './dataTe.json'
 import * as dataEndulzante from './dataEndulzante.json'
 import * as dataAccesorios from './dataAccesorio.json'
+import * as dataUser from './dataUser.json'
 import { Coffee } from 'src/entities/products/product-coffee.entity';
 import { Chocolate } from 'src/entities/products/product-chocolate.entity';
 import { Mate } from 'src/entities/products/product-mate.entity';
 import {Te} from 'src/entities/products/product-te.entity'
 import { Endulzante } from 'src/entities/products/product-endulzante.entity';
 import { Accesorio } from 'src/entities/products/product-accesorio.entity';
+import { User } from 'src/entities/user.entity';
 
 @Injectable()
 export class PreloadService implements OnModuleInit{
@@ -29,7 +31,8 @@ export class PreloadService implements OnModuleInit{
         @InjectRepository(Te) private teRepository: Repository<Te>,
         @InjectRepository(Endulzante) private endulzanteRepository: Repository<Endulzante>,
         @InjectRepository(Accesorio) private accesorioRepository: Repository<Accesorio>,
-        @InjectRepository(Category) private categoryRepository: Repository<Category>
+        @InjectRepository(Category) private categoryRepository: Repository<Category>,
+        @InjectRepository(User) private userRepository: Repository<User>
     ){
         this.repositories = {
             "coffee":{repository:coffeeRepository, class: Coffee},
@@ -161,6 +164,19 @@ export class PreloadService implements OnModuleInit{
 
     }
 
+    async addDefaultUser(dataUser){
+        
+        await Promise.all(dataUser.map(async (user)=>{
+            const objUser = this.userRepository.create({
+                ...user
+            })
+
+            await this.userRepository.save(objUser)
+        }))
+
+        console.log("Se cargo usuarios por defecto")
+    }
+
     async onModuleInit() {
         await this.addDefaultCategories();
         //await this.addDefaultProducts()
@@ -170,5 +186,6 @@ export class PreloadService implements OnModuleInit{
         await this.addProducts(dataChocolate,'chocolate')
         await this.addProducts(dataEndulzante,'endulzante')
         await this.addProducts(dataAccesorios,'accesorio')
+        await this.addDefaultUser(dataUser)
     }
 }

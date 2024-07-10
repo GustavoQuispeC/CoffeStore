@@ -1,6 +1,7 @@
 
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, TableInheritance } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, TableInheritance } from "typeorm";
 import { Category } from "../category.entity";
+import { ProductOrder } from "../product-order.entity";
 
 @Entity({name:"products"})
 @TableInheritance({ column: { type: "varchar", name: "group" } })
@@ -37,4 +38,8 @@ export abstract class Product {
 
     @ManyToOne(() => Category, (category) => category.products)
     category: Category;
+
+    @OneToMany(()=>ProductOrder,(productOrder)=>productOrder.product)
+    productsOrder: ProductOrder[];
+
 }

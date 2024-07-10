@@ -1,0 +1,15 @@
+[
+    {"name":"user01",
+    "email":"user01@gmail.com",
+    "password":"123#abc2",
+    "phone":"987567123",
+    "role":"user"
+    },
+    {"name":"admin01",
+    "email":"admin01@gmail.com",
+    "password":"123#abc2",
+    "phone":"987567123",
+    "role":"admin"
+    }
+
+]

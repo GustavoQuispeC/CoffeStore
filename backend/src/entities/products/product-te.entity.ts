@@ -3,7 +3,6 @@ import { Product } from "./product.entity";
 
 @ChildEntity()
 export class Te extends Product{
-    @Column()
-    ok_te:boolean
+
 }
 

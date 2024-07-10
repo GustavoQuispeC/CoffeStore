@@ -16,6 +16,7 @@ import { Endulzante } from './entities/products/product-endulzante.entity';
 import {Te} from './entities/products/product-te.entity'
 import { Chocolate } from './entities/products/product-chocolate.entity';
 import { Accesorio } from './entities/products/product-accesorio.entity';
+import { OrderModule } from './modules/order/order.module';
 
 @Module({
   imports: [
@@ -32,7 +33,8 @@ import { Accesorio } from './entities/products/product-accesorio.entity';
     TypeOrmModule.forFeature([Product,Category,User,Coffee,Mate,Endulzante,Chocolate,Te,Accesorio])
     ,
     UsersModule,
-    ProductsModule
+    ProductsModule,
+    OrderModule
   ],
   controllers: [AppController],
   providers: [AppService, PreloadService],
