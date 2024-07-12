@@ -7,6 +7,9 @@ import { ProductInfo } from './order.dto';
 import { User } from 'src/entities/user.entity';
 import { Product } from 'src/entities/products/product.entity';
 import { ProductOrder } from 'src/entities/product-order.entity';
+import { OrderQuery } from './orders.query';
+import { Transaccion } from 'src/entities/transaction.entity';
+import { OrderStatus } from 'src/enum/orderStatus.enum';
 
 
 @Injectable()
@@ -17,22 +20,16 @@ export class OrderService {
         @InjectRepository(OrderDetail) private orderDetailRepository: Repository<OrderDetail>,
         @InjectRepository(User) private userRepository: Repository<User>,
         @InjectRepository(Product) private productRepository: Repository<Product>,
+        private readonly orderQuery: OrderQuery,
         private readonly dataSource: DataSource
     ){}
 
     async GetAll(){
-        return await this.orderRepository.createQueryBuilder('order')
-        .leftJoinAndSelect('order.productsOrder', 'productsOrder')
-        .where('order.isDeleted = :isDeleted', { isDeleted: false })
-        .getMany();
+        return await this.orderQuery.getOrders()
     }
 
     async GetById(id:string){
-        return await this.orderRepository.createQueryBuilder('order')
-        .leftJoinAndSelect('order.productOrder', 'productOrder')
-        .where('order.id = :orID', { orID: id})
-        .andWhere('order.isDeleted = :isDeleted', { isDeleted: false })
-        .getOne();
+        return await this.orderQuery.getOrder(id);
     }
 
     async addOrder(userId:string, productsInfo:ProductInfo[],adress:undefined|string, cupoDescuento:undefined|number){
@@ -82,18 +79,27 @@ export class OrderService {
                 ))
             
             if(cupoDescuento) total*=(1-cupoDescuento);
-            const orderDetails = transactionalEntityManager.create(OrderDetail, {
+            const orderDetail = transactionalEntityManager.create(OrderDetail, {
                 totalPrice: Number(total.toFixed(2)),
                 order: newOrder,
                 cupoDescuento:cupoDescuento? cupoDescuento:0,
                 adressDelivery:adress? adress:"tienda"
             });
                     
-            await transactionalEntityManager.save(OrderDetail, orderDetails);
+            await transactionalEntityManager.save(OrderDetail, orderDetail);
 
+            //agregamos estado
+
+            await transactionalEntityManager.save(Transaccion,{
+                status:OrderStatus.RECIBIDO,
+                timestamp:new Date(),
+                orderdetail: orderDetail
+            })
         })
 
-        return createdOrder
+        return {
+            message: `Se creo con exito orden ${createdOrder.id}`
+            }
         }
 
     async deleteOrder(id:string){

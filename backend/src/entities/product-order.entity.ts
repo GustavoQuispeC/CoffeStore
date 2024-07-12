@@ -2,7 +2,7 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Product } from "./products/product.entity";
 import { Order } from "./order.entity";
 
-@Entity()
+@Entity({name:'productsorder'})
 export class ProductOrder{
 
     @PrimaryGeneratedColumn()

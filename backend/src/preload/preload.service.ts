@@ -19,6 +19,7 @@ import {Te} from 'src/entities/products/product-te.entity'
 import { Endulzante } from 'src/entities/products/product-endulzante.entity';
 import { Accesorio } from 'src/entities/products/product-accesorio.entity';
 import { User } from 'src/entities/user.entity';
+import { OrderService } from 'src/modules/order/order.service';
 
 @Injectable()
 export class PreloadService implements OnModuleInit{
@@ -32,7 +33,8 @@ export class PreloadService implements OnModuleInit{
         @InjectRepository(Endulzante) private endulzanteRepository: Repository<Endulzante>,
         @InjectRepository(Accesorio) private accesorioRepository: Repository<Accesorio>,
         @InjectRepository(Category) private categoryRepository: Repository<Category>,
-        @InjectRepository(User) private userRepository: Repository<User>
+        @InjectRepository(User) private userRepository: Repository<User>,
+        private readonly orderService:OrderService,
     ){
         this.repositories = {
             "coffee":{repository:coffeeRepository, class: Coffee},
@@ -177,6 +179,21 @@ export class PreloadService implements OnModuleInit{
         console.log("Se cargo usuarios por defecto")
     }
 
+    async addDefaultOrder(){
+
+        const users = await this.userRepository.find();
+        const product_1 = await this.chocolateRepository.find();
+        const product_2 = await this.teRepository.find();
+
+        const response = await this.orderService.addOrder(users[0].id,[
+            {id:product_1[0].id, cantidad:2},
+            {id:product_2[0].id, cantidad:3}
+        ],"tienda",0)
+        
+        console.log("se cargo preorder por defecto")
+    }
+
+
     async onModuleInit() {
         await this.addDefaultCategories();
         //await this.addDefaultProducts()
@@ -187,5 +204,6 @@ export class PreloadService implements OnModuleInit{
         await this.addProducts(dataEndulzante,'endulzante')
         await this.addProducts(dataAccesorios,'accesorio')
         await this.addDefaultUser(dataUser)
+        await this.addDefaultOrder()
     }
 }
