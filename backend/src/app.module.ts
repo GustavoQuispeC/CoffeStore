@@ -17,6 +17,7 @@ import {Te} from './entities/products/product-te.entity'
 import { Chocolate } from './entities/products/product-chocolate.entity';
 import { Accesorio } from './entities/products/product-accesorio.entity';
 import { OrderModule } from './modules/order/order.module';
+import { MercadoPagoModule } from './modules/marketpay/mercado-pago.module';
 
 @Module({
   imports: [
@@ -34,7 +35,8 @@ import { OrderModule } from './modules/order/order.module';
     ,
     UsersModule,
     ProductsModule,
-    OrderModule
+    OrderModule,
+    MercadoPagoModule
   ],
   controllers: [AppController],
   providers: [AppService, PreloadService],
