@@ -1,7 +1,8 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Order } from "./order.entity";
+import { Transaccion } from "./transaction.entity";
 
-@Entity()
+@Entity({name:'orderdetails'})
 export class OrderDetail {
     @PrimaryGeneratedColumn()
     id:string
@@ -18,4 +19,7 @@ export class OrderDetail {
     @OneToOne(()=>Order,(order)=>order.orderDetail)
     @JoinColumn({name:'orderId'})
     order:  Order
+
+    @OneToMany(()=>Transaccion,(transaccion)=> transaccion.orderdetail)
+    transactions : Transaccion[]
 }

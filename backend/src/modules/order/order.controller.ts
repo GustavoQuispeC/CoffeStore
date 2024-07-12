@@ -16,7 +16,8 @@ export class OrderController {
 
     @Get(':id')
     async GetById(@Param('id', ParseUUIDPipe) id: string){
-        return await this.GetById(id)
+        return await this.orderService.GetById(id)
+        
     }
 
     @Post()
