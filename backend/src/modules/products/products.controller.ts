@@ -1,5 +1,4 @@
-import { Controller, Get, Inject, Param, ParseUUIDPipe, Query } from '@nestjs/common';
-import { Category } from 'src/entities/category.entity';
+import { Controller, Delete, Get, Inject, Param, ParseUUIDPipe, Post, Put, Query } from '@nestjs/common';
 import { ProductsService } from './products.service';
 
 @Controller('products')
@@ -33,4 +32,21 @@ export class ProductsController {
         return this.productService.getById(id)
     }
 
+
+    @Post()
+    async createProduct(){
+
+        return "se creo con exito el producto"
+    } 
+    
+    @Put(':id')
+    async updateProuct(){
+        return "se realizo el upda del producto"
+    }
+
+    @Delete(':id')
+    async deleteProduct(){
+        return "se elimino del producto"
+    }
+    
 }

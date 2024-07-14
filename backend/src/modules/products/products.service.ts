@@ -74,5 +74,20 @@ export class ProductsService {
         return product;
     }
 
+    async addProduct(infoProduct:any, file?:Express.Multer.File){
+
+    }
+
+    async updateProduct(id:string, infoProduct:any){
+        const product = await this.productRepository.findOneBy({id});
+        if(!product) throw new NotFoundException(`No se encontro el producto con id: ${id}`)
+        
+        
+    }
+
+    async deleteProduct(){
+
+    }
+
     }
 
