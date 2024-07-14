@@ -65,3 +65,6 @@ node_modules
 .env.production.local
 .env.local
 .env*.local
+
+# configuracion Firebasejson
+coffee-store-98417-firebase-adminsdk-cpdwm-bdc2829f67.json
