@@ -56,8 +56,8 @@ export class ProductsController {
     }
 
     @Delete(':id')
-    async deleteProduct(){
-        return "se elimino del producto"
+    async deleteProduct(@Param('id', ParseUUIDPipe) id: string){
+        return await this.productService.deleteProduct(id)
     }
     
 }

@@ -145,7 +145,14 @@ export class ProductsService {
     }
 
     async deleteProduct(id:string){
+        const product = await this.productRepository.findOne({where:{id},relations:{category:true}});
+        if(!product) throw new NotFoundException(`No se encontro el producto con id: ${id}`)
+        
+        await this.productRepository.update(id,{isDeleted:true})
 
+        return {
+            message:`El producto con id ${id} fue eliminado`
+        }
     }
 
     }
