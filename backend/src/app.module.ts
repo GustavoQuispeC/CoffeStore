@@ -17,7 +17,6 @@ import {Te} from './entities/products/product-te.entity'
 import { Chocolate } from './entities/products/product-chocolate.entity';
 import { Accesorio } from './entities/products/product-accesorio.entity';
 import { OrderModule } from './modules/order/order.module';
-import { ImageService } from './modules/storage/image.service';
 import { ImageController } from './modules/storage/image.controller';
 import { MercadoPagoModule } from './modules/marketpay/mercado-pago.module';
 
@@ -41,6 +40,6 @@ import { MercadoPagoModule } from './modules/marketpay/mercado-pago.module';
     MercadoPagoModule
   ],
   controllers: [AppController, ImageController],
-  providers: [AppService, PreloadService, ImageService],
+  providers: [AppService, PreloadService],
 })
 export class AppModule {}

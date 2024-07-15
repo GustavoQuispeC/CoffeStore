@@ -1,12 +1,12 @@
 import { Controller, HttpStatus, ParseFilePipeBuilder, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
-import { ImageService } from './image.service';
+import { UploadService } from './upload.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('image')
 export class ImageController {
-    constructor(private readonly imageService: ImageService){}
+    //constructor(private readonly uploadService: UploadService){}
 
-    @Post()
+    /* @Post()
     @UseInterceptors(FileInterceptor('file'))
     async uploadFile(@UploadedFile(
         new ParseFilePipeBuilder()
@@ -19,8 +19,8 @@ export class ImageController {
         })
     ) file?: Express.Multer.File){
         
-        const url = await this.imageService.uploadFile(file);
+        const url = await this.uploadService.uploadFile(file);
         return {url};
-    }
+    } */
 
 }
