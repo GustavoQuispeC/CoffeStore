@@ -1,5 +1,8 @@
-import { Controller, Delete, Get, Inject, Param, ParseUUIDPipe, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Inject, Param, ParseFilePipeBuilder, ParseUUIDPipe, Post, Put, Query, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { ProductsService } from './products.service';
+import { ProductValidationInterceptor } from 'src/interceptors/productValidatorInterceptor';
+import { CreateProductdto, UpdatedProductdto } from './dtos/products.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('products')
 export class ProductsController {
@@ -20,7 +23,7 @@ export class ProductsController {
     }
 
     @Get("/available")
-    async getAllAvailable(@Query('categry') category: string){
+    async getAllAvailable(@Query('category') category: string){
         if(category) 
             return this.productService.getAvailableByCategory(category)
         else
@@ -34,14 +37,22 @@ export class ProductsController {
 
 
     @Post()
-    async createProduct(){
-
-        return "se creo con exito el producto"
+    @UseInterceptors(ProductValidationInterceptor)
+    @UseInterceptors(FileInterceptor('file'))
+    async createProduct(@Body() productInfo:CreateProductdto,
+                        @UploadedFile()file?: Express.Multer.File){
+        return this.productService.addProduct(productInfo,file)
+        
     } 
     
     @Put(':id')
-    async updateProuct(){
-        return "se realizo el upda del producto"
+    @UseInterceptors(ProductValidationInterceptor)
+    @UseInterceptors(FileInterceptor('file'))
+    async updateProuct(@Param('id', ParseUUIDPipe) id: string,
+                        @Body() productInfo:UpdatedProductdto,
+                        @UploadedFile()file?: Express.Multer.File){
+
+        return this.productService.updateProduct(id,productInfo,file)
     }
 
     @Delete(':id')
