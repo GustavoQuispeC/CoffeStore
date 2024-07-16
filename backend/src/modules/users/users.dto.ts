@@ -9,7 +9,7 @@ name: string;
 email: string;
 
 @IsOptional()
-@IsEnum(Role)
+@IsEnum(Role, { each: true })
 role: Role;
 
 @IsOptional()
