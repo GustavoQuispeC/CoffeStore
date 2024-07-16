@@ -1,11 +1,11 @@
 import { Injectable, NotFoundException, ConflictException, BadRequestException} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
-import { UserDTO } from 'src/modules/users/users.dto';
 import { User } from 'src/entities/user.entity';
 import { Repository } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
 import { Role } from 'src/enum/roles.enum';
+import { UserDTO } from './users.dto';
 
 @Injectable()
 export class UsersService {
@@ -42,6 +42,9 @@ export class UsersService {
         sub: user.id, 
         roles: userRoles
     }
+
+    console.log(payload);
+    
     const accessToken = this.jwtService.sign(payload);
 
     return { success : 'User logged in successfully', accessToken}
