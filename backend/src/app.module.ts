@@ -18,6 +18,7 @@ import { Chocolate } from './entities/products/product-chocolate.entity';
 import { Accesorio } from './entities/products/product-accesorio.entity';
 import { OrderModule } from './modules/order/order.module';
 import { MercadoPagoModule } from './modules/marketpay/mercado-pago.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -36,7 +37,12 @@ import { MercadoPagoModule } from './modules/marketpay/mercado-pago.module';
     UsersModule,
     ProductsModule,
     OrderModule,
-    MercadoPagoModule
+    MercadoPagoModule,
+    JwtModule.register({
+      global: true,
+      signOptions: { expiresIn: '1h' },
+      secret: process.env.JWT_SECRET,
+    })
   ],
   controllers: [AppController],
   providers: [AppService, PreloadService],

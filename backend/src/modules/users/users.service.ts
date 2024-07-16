@@ -1,13 +1,17 @@
-import { Injectable, NotFoundException, ConflictException} from '@nestjs/common';
+import { Injectable, NotFoundException, ConflictException, BadRequestException} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import * as bcrypt from 'bcrypt';
 import { UserDTO } from 'src/modules/users/users.dto';
 import { User } from 'src/entities/user.entity';
 import { Repository } from 'typeorm';
+import { JwtService } from '@nestjs/jwt';
+import { Role } from 'src/enum/roles.enum';
 
 @Injectable()
 export class UsersService {
     constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
+    private readonly jwtService: JwtService,
     ) {}
 
     async signUp(userDTO: UserDTO): Promise<User> {
@@ -24,22 +28,28 @@ export class UsersService {
     return await this.userRepository.save(newUser);
     }
 
-    async signIn(email: string, password: string): Promise<User | undefined> {
+    async signIn(email: string, password: string) {
     const user = await this.userRepository.findOne({ where: { email } });
+    if (!user) throw new NotFoundException('Invalid credentials');
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (isPasswordValid) throw new BadRequestException('Invalid credentials');
 
-    if (!user) {
-        throw new NotFoundException('Usuario no encontrado');
+
+    let userRoles: Role[]
+
+    const payload = { 
+        email: user.email, 
+        sub: user.id, 
+        roles: userRoles
     }
+    const accessToken = this.jwtService.sign(payload);
 
-    if (user.password && user.password === password) {
-        return user;
-    }
+    return { success : 'User logged in successfully', accessToken}
+    // if (user.password && user.password === password) return user;
 
-    if (!user.password) {
-        return user;
-    }
+    // if (!user.password) return user;
 
-    throw new NotFoundException('Credenciales inválidas');
+    // throw new NotFoundException('Credenciales inválidas');
     }
 
     async getUserById(id: string): Promise<User | undefined> {

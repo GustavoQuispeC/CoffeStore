@@ -16,7 +16,7 @@ async signUp(@Body() userDTO: UserDTO): Promise<User> {
 async signIn(
     @Body('email') email: string,
     @Body('password') password: string,
-): Promise<User | undefined> {
+) {
     return await this.usersService.signIn(email, password);
 }
 
