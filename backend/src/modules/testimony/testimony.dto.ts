@@ -1,25 +1,36 @@
 import { Type } from 'class-transformer';
-import { IsEmail, IsNotEmpty, IsNumber, IsOptional, IsPositive, IsString, Length, } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional, IsPositive, IsString, IsUUID } from 'class-validator';
 
 export class CreateTestimonyDto {
 
   /**
-   * Must be a name beetween 3 to 50 characters
-   * @example 'Jose Luis Vasquez'
-   */
-  @IsString()
-  @Length(3, 40)
+  *Must be a String idUser
+  *@example '"userId": "7871f2c9-6b43-4df6-9f93-9a93c388f26b"'
+  */
   @IsNotEmpty()
-  name: string;
+  @IsUUID()
+  userId: string
 
   /**
-  Must be an email valid. Mandatory data
-  @example 'jose-vasquez@gmail.com'
-  */
+   * Must be a description valid
+   * @example 'bueno'
+   */
   @IsString()
-  @IsEmail()
-  @IsNotEmpty()
-  email: string;
+  description:string
+
+  /**
+   * Must be a number
+   * @example 4
+   */
+//   @IsOptional()
+  @IsNumber()
+  @Type(()=> Number)
+  @IsPositive()
+  punctuation: number;
+
+}
+
+export class CreateTestimonyEntityDto {
 
   /**
    * Must be a description valid

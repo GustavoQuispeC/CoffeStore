@@ -7,12 +7,14 @@ export class TestimonyController {
     constructor(private readonly testimonyService:TestimonyService){}
 
     @Get()
-    getTestimonials(){
-            return this.testimonyService.getTestimonials()
+    async getTestimonials(){
+            return await this.testimonyService.getTestimonials()
     }
 
     @Post()
-    createTestimony(@Body() testimony: CreateTestimonyDto){
-        return this.testimonyService.createTestimony(testimony)
+    async createTestimony(@Body() testimony: CreateTestimonyDto){
+        const { userId, ...testimonyEntity } = testimony
+        return this.testimonyService.createTestimony(userId, testimonyEntity)
     }
+
 }
