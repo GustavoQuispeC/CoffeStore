@@ -2,7 +2,7 @@
     {
         "article_id": 27,
         "description": "Te x 100 saquitos Green Hills",
-        "imgUrl" :"-",
+        "imgUrl" :"http://www.cafelaesmeralda.com.ar/img/por1.jpg",
         "price" : 3000,
         "stock": 84,
         "category":"te"

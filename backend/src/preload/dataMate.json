@@ -2,7 +2,7 @@
     {
         "article_id": 27,
         "description": "Mate x 50",
-        "imgUrl" :"-",
+        "imgUrl" :"http://www.cafelaesmeralda.com.ar/img/por1.jpg",
         "price" : 3000,
         "stock": 54,
         "category":"mate"
