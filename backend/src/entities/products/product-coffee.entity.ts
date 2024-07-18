@@ -1,10 +1,11 @@
-import { ChildEntity, Column } from "typeorm";
+import { ChildEntity, Column, Entity } from "typeorm";
 import { Product } from "./product.entity";
 import { Presentacion } from "src/enum/presentacion.enum";
 import { TipoGrano } from "src/enum/tipoGrano.enum";
 import { Medida } from "src/enum/medidas.enum";
 
-@ChildEntity()
+//@ChildEntity()
+@Entity()
 export class Coffee extends Product{
     @Column({
         type: 'enum',

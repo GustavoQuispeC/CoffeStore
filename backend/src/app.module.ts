@@ -22,6 +22,8 @@ import { MercadoPagoModule } from './modules/marketpay/mercado-pago.module';
 import { JwtModule } from '@nestjs/jwt';
 import { TestimonyModule } from './modules/testimony/testimony.module';
 import { Testimony } from './entities/testimony.entity';
+import { CategoryController } from './modules/categorias/category.controller';
+import { CategoryModule } from './modules/categorias/category.module';
 
 @Module({
   imports: [
@@ -46,9 +48,10 @@ import { Testimony } from './entities/testimony.entity';
       global: true,
       signOptions: { expiresIn: '1h' },
       secret: process.env.JWT_SECRET,
-    })
+    }),
+    CategoryModule
   ],
-  controllers: [AppController, ImageController],
+  controllers: [AppController, ImageController, CategoryController],
   providers: [AppService, PreloadService],
 })
 export class AppModule {}
