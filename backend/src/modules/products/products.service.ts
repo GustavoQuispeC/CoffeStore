@@ -86,8 +86,8 @@ export class ProductsService {
         const foundProduct = await this.productRepository.findOneBy({article_id:infoProduct.article_id})
         if(foundProduct) throw new BadRequestException(`ya existe un producto con article_id: ${infoProduct.article_id}`)
         
-        const foundCategory = await this.categoryRepository.findOneBy({name:infoProduct.category})
-        if(!foundCategory) throw new BadRequestException(`Categoria:${infoProduct.category}  no existe debera crear en base de datos`)
+        const foundCategory = await this.categoryRepository.findOneBy({id:infoProduct.categoryID})
+        if(!foundCategory) throw new BadRequestException(`Categoria:${infoProduct.categoryID}  no existe debera crear en base de datos`)
 
         let imgURL: string | undefined;
 
@@ -97,7 +97,7 @@ export class ProductsService {
         }
 
         let builder =  this.productRepository;
-        if(infoProduct.category==='coffee'){
+        if(foundCategory.name==='coffee'){
             builder = this.coffeeRepository;
         }
 
