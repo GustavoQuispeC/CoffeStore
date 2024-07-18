@@ -204,6 +204,6 @@ export class PreloadService implements OnModuleInit{
         await this.addProducts(dataEndulzante,'endulzante')
         await this.addProducts(dataAccesorios,'accesorio')
         await this.addDefaultUser(dataUser)
-        //await this.addDefaultOrder()
+        await this.addDefaultOrder()
     }
 }

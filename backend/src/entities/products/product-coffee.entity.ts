@@ -4,8 +4,8 @@ import { Presentacion } from "src/enum/presentacion.enum";
 import { TipoGrano } from "src/enum/tipoGrano.enum";
 import { Medida } from "src/enum/medidas.enum";
 
-//@ChildEntity()
-@Entity()
+@ChildEntity()
+//@Entity()
 export class Coffee extends Product{
     @Column({
         type: 'enum',
