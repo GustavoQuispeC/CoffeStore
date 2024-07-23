@@ -11,19 +11,25 @@ export class OrderController {
 
     @Get()
     async GetAll(){
-        return await this.orderService.GetAll()
+        return await this.orderService.getAll()
     }   
 
     @Get(':id')
     async GetById(@Param('id', ParseUUIDPipe) id: string){
-        return await this.orderService.GetById(id)
+        return await this.orderService.getById(id)
+        
+    }
+
+    @Get('user/:id')
+    async GetByUserId(@Param('id', ParseUUIDPipe) id: string){
+        return await this.orderService.getByUserId(id)
         
     }
 
     @Post()
     async addOne(@Body() orderInfo:AddOrderDto){    
-        const {userId,products,adress,cuponDescuento} = orderInfo
-        return await this.orderService.addOrder(userId,products,adress,Number(cuponDescuento))
+        const {userId,products,adress,cuponDescuento,deliveryDate} = orderInfo
+        return await this.orderService.addOrder(userId,products,adress,Number(cuponDescuento),deliveryDate)
     }
 
     @Delete(':id')

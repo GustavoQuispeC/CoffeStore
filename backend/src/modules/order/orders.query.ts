@@ -23,9 +23,11 @@ export class OrderQuery {
         .where('orders.id = :orID', { orID: id})
         .andWhere('orders.isDeleted = :isDeleted', { isDeleted: false })
         .select([
+            'user.id',
             'orders.id',
             'orders.date',
             'orderDetails.totalPrice',
+            'orderDetails.deliveryDate',
             'transaction.status',
             'transaction.timestamp',
             'productsOrder.cantidad',
@@ -33,11 +35,43 @@ export class OrderQuery {
             'products.description',
             'products.price',
             'products.discount',
-            'products.imgUrl'
+            'products.imgUrl',
         ])
         .getOne();
 
         return order
+    }
+
+
+    async getByUserId(id:string){
+
+        const orders = this.orderRepository
+        .createQueryBuilder('orders')
+        .leftJoinAndSelect('orders.user', 'user')
+        .leftJoinAndSelect('orders.productsOrder', 'productsOrder')
+        .leftJoinAndSelect('productsOrder.product', 'products')
+        .leftJoinAndSelect('orders.orderDetail', 'orderDetails')
+        .leftJoinAndSelect('orderDetails.transactions', 'transaction')
+        .where('user.id = :orID', { orID: id})
+        .andWhere('orders.isDeleted = :isDeleted', { isDeleted: false })
+        .select([
+            'user.id',
+            'orders.id',
+            'orders.date',
+            'orderDetails.totalPrice',
+            'orderDetails.deliveryDate',
+            'transaction.status',
+            'transaction.timestamp',
+            'productsOrder.cantidad',
+            'products.id',
+            'products.description',
+            'products.price',
+            'products.discount',
+            'products.imgUrl',
+        ])
+        .getMany();
+
+        return orders
     }
 
 
@@ -52,9 +86,11 @@ export class OrderQuery {
         .leftJoinAndSelect('orderDetails.transactions', 'transaction')
         .where('orders.isDeleted = :isDeleted', { isDeleted: false })
         .select([
+            'user.id',
             'orders.id',
             'orders.date',
             'orderDetails.totalPrice',
+            'orderDetails.deliveryDate',
             'transaction.status',
             'transaction.timestamp',
             'productsOrder.cantidad',
@@ -62,7 +98,7 @@ export class OrderQuery {
             'products.description',
             'products.price',
             'products.discount',
-            'products.imgUrl'
+            'products.imgUrl',
         ])
         .getMany();
 

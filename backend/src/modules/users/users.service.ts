@@ -15,7 +15,7 @@ export class UsersService {
     ) {}
 
     async signUp(userDTO: UserDTO): Promise<User> {
-    const { email } = userDTO;
+    const { email, password } = userDTO;
 
     const existingUser = await this.userRepository.findOne({
         where: { email },
@@ -24,18 +24,44 @@ export class UsersService {
         throw new ConflictException('El usuario ya existe');
     }
 
-    const newUser = this.userRepository.create(userDTO);
-    return await this.userRepository.save(newUser);
+    let newUser: User;
+
+    if (password) {
+        const hashedPassword = await bcrypt.hash(password, 10);
+        if (!hashedPassword) throw new BadRequestException('Error hashing password');
+        newUser = await this.userRepository.create({...userDTO, password: hashedPassword});
+    } else {
+        newUser = await this.userRepository.create(userDTO);
     }
 
+    return await this.userRepository.save(newUser);
+    
+}
+
     async signIn(email: string, password: string) {
-    const user = await this.userRepository.findOne({ where: { email } });
-    if (!user) throw new NotFoundException('Invalid credentials');
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (isPasswordValid) throw new BadRequestException('Invalid credentials');
-
-
+    const user = await this.userRepository.findOneBy({ email });
     let userRoles: Role[]
+    
+    if (!user) throw new NotFoundException('Invalid credentials');
+
+    if (!user.password) {
+        const payload = { 
+            email: user.email, 
+            sub: user.id,
+            roles: [userRoles],  
+        };
+
+        console.log(payload);
+
+        const accessToken = this.jwtService.sign(payload);
+
+        return { success: 'External user logged in successfully', accessToken };
+    }
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    
+    if (!isPasswordValid) throw new BadRequestException('Invalid credentials');
+
+    
 
     const payload = { 
         email: user.email, 
@@ -48,7 +74,6 @@ export class UsersService {
     const accessToken = this.jwtService.sign(payload);
 
     return { success : 'User logged in successfully', accessToken}
-    // if (user.password && user.password === password) return user;
 
     // if (!user.password) return user;
 

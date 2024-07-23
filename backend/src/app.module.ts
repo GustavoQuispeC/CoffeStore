@@ -20,6 +20,9 @@ import { OrderModule } from './modules/order/order.module';
 import { ImageController } from './modules/storage/image.controller';
 import { MercadoPagoModule } from './modules/marketpay/mercado-pago.module';
 import { JwtModule } from '@nestjs/jwt';
+import { TestimonyModule } from './modules/testimony/testimony.module';
+import { Testimony } from './entities/testimony.entity';
+import { CategoryModule } from './modules/categorias/category.module';
 
 @Module({
   imports: [
@@ -33,17 +36,19 @@ import { JwtModule } from '@nestjs/jwt';
       useFactory: (ConfigService: ConfigService) =>
         ConfigService.get('typeorm'),
     }),
-    TypeOrmModule.forFeature([Product,Category,User,Coffee,Mate,Endulzante,Chocolate,Te,Accesorio])
+    TypeOrmModule.forFeature([Testimony,Product,Category,User,Coffee,Mate,Endulzante,Chocolate,Te,Accesorio])
     ,
     UsersModule,
     ProductsModule,
     OrderModule,
     MercadoPagoModule,
+    TestimonyModule,
     JwtModule.register({
       global: true,
       signOptions: { expiresIn: '1h' },
       secret: process.env.JWT_SECRET,
-    })
+    }),
+    CategoryModule
   ],
   controllers: [AppController, ImageController],
   providers: [AppService, PreloadService],

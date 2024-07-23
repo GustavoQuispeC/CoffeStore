@@ -2,7 +2,7 @@
     {
         "article_id": 82,
         "description": "Chocolate x 50 MAPSA",
-        "imgUrl" :"-",
+        "imgUrl" :"http://www.cafelaesmeralda.com.ar/img/por1.jpg",
         "price" : 200000,
         "stock": 113,
         "category":"chocolate"
