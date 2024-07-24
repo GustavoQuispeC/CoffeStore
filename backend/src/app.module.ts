@@ -23,6 +23,8 @@ import { JwtModule } from '@nestjs/jwt';
 import { TestimonyModule } from './modules/testimony/testimony.module';
 import { Testimony } from './entities/testimony.entity';
 import { CategoryModule } from './modules/categorias/category.module';
+import { StorageOrderModule } from './modules/storageOrder/storage-order.module';
+import { Storage } from './entities/storage.entity';
 
 @Module({
   imports: [
@@ -36,7 +38,7 @@ import { CategoryModule } from './modules/categorias/category.module';
       useFactory: (ConfigService: ConfigService) =>
         ConfigService.get('typeorm'),
     }),
-    TypeOrmModule.forFeature([Testimony,Product,Category,User,Coffee,Mate,Endulzante,Chocolate,Te,Accesorio])
+    TypeOrmModule.forFeature([Testimony,Product,Category,User,Coffee,Mate,Endulzante,Chocolate,Te,Accesorio,Storage])
     ,
     UsersModule,
     ProductsModule,
@@ -48,7 +50,8 @@ import { CategoryModule } from './modules/categorias/category.module';
       signOptions: { expiresIn: '1h' },
       secret: process.env.JWT_SECRET,
     }),
-    CategoryModule
+    CategoryModule,
+    StorageOrderModule,
   ],
   controllers: [AppController, ImageController],
   providers: [AppService, PreloadService],

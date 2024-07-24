@@ -2,6 +2,7 @@
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, TableInheritance } from "typeorm";
 import { Category } from "../category.entity";
 import { ProductOrder } from "../product-order.entity";
+import { Storage } from "../storage.entity";
 
 @Entity({name:"products"})
 @TableInheritance({ column: { type: "varchar", name: "group" } })
@@ -42,4 +43,6 @@ export abstract class Product {
     @OneToMany(()=>ProductOrder,(productOrder)=>productOrder.product)
     productsOrder: ProductOrder[];
 
+    @OneToMany(()=>Storage,(storage)=>storage.product)
+    storage: Storage[];
 }

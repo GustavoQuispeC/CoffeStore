@@ -20,6 +20,7 @@ import { Endulzante } from 'src/entities/products/product-endulzante.entity';
 import { Accesorio } from 'src/entities/products/product-accesorio.entity';
 import { User } from 'src/entities/user.entity';
 import { OrderService } from 'src/modules/order/order.service';
+import { StorageOrderService } from 'src/modules/storageOrder/storage-order.service';
 
 @Injectable()
 export class PreloadService implements OnModuleInit{
@@ -35,6 +36,7 @@ export class PreloadService implements OnModuleInit{
         @InjectRepository(Category) private categoryRepository: Repository<Category>,
         @InjectRepository(User) private userRepository: Repository<User>,
         private readonly orderService:OrderService,
+        private readonly storageService:StorageOrderService
     ){
         this.repositories = {
             "coffee":{repository:coffeeRepository, class: Coffee},
@@ -193,6 +195,19 @@ export class PreloadService implements OnModuleInit{
         console.log("se cargo preorder por defecto")
     }
 
+    async addDefaultStorage(){
+        const users = await this.userRepository.find();
+        const product_1 = await this.chocolateRepository.find();
+        const product_2 = await this.teRepository.find();
+
+        await this.storageService.storage(users[0].id,[
+            {id:product_1[0].id, cantidad:5},
+            {id:product_2[0].id, cantidad:1}
+        ])
+        
+        console.log("se cargo  storage por defecto")
+
+    }
 
     async onModuleInit() {
         await this.addDefaultCategories();
@@ -205,5 +220,6 @@ export class PreloadService implements OnModuleInit{
         await this.addProducts(dataAccesorios,'accesorio')
         await this.addDefaultUser(dataUser)
         await this.addDefaultOrder()
+        await this.addDefaultStorage()
     }
 }

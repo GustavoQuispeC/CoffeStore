@@ -2,6 +2,7 @@ import { Role } from "src/enum/roles.enum";
 import { BaseEntity, Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Testimony } from "./testimony.entity";
 import { Order } from "./order.entity";
+import { Storage } from "./storage.entity";
 
 @Entity({ name: 'users'})
 export class User extends BaseEntity {
@@ -36,4 +37,6 @@ export class User extends BaseEntity {
   @OneToMany(() => Testimony, testimony => testimony.user)
   testimonies: Testimony[];
 
+  @OneToMany(()=>Storage,(storage)=>storage.user)
+  storage: Storage[];
 }
