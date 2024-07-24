@@ -50,14 +50,16 @@ export class UsersService {
         const payload = { 
             email: user.email, 
             sub: user.id,
-            roles: [userRoles],  
+            roles: [userRoles],
+            isAvailable: user.isAvailable,
+            isDeleted: user.isDeleted  
         };
 
         console.log(payload);
 
         const accessToken = this.jwtService.sign(payload);
 
-        return { success: 'External user logged in successfully', accessToken, user };
+        return { success: 'External user logged in successfully', accessToken };
     }
     const isPasswordValid = await bcrypt.compare(password, user.password);
     
@@ -66,9 +68,15 @@ export class UsersService {
     
 
     const payload = { 
-        email: user.email, 
+        name: user.name,
+        email: user.email,
+        password: user.password,
+        phone: user.phone, 
         sub: user.id, 
-        roles: userRoles
+        roles: userRoles,
+        isAvailable: user.isAvailable,
+        isDeleted: user.isDeleted
+
     }
 
     console.log(payload);
