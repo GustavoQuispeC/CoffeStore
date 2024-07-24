@@ -121,7 +121,7 @@ export class ProductsService {
         let builder = this.productRepository;
         if(product.category.name==='coffee') builder = this.coffeeRepository
 
-        const{category:newCategory,...updateData} = infoProduct
+        const{categoryID,...updateData} = infoProduct
 
     
         if(file){
@@ -130,9 +130,9 @@ export class ProductsService {
             updateData["imgUrl"] = imgURL
         }
 
-        if(newCategory){
-            const foundCategory = await this.categoryRepository.findOneBy({ name:newCategory});
-            if(!foundCategory) throw new NotFoundException(`Categoria ${newCategory} no existe`)
+        if(categoryID){
+            const foundCategory = await this.categoryRepository.findOneBy({ id:categoryID});
+            if(!foundCategory) throw new NotFoundException(`Categoria ${categoryID} no existe`)
             updateData["category"] = foundCategory;
         }
 
