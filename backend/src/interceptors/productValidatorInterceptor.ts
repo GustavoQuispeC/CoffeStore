@@ -32,7 +32,7 @@ export class ProductValidationInterceptor implements NestInterceptor{
         if(body.categoryID === coffeeID) {
             dtoClass= method === 'POST'?CreateCoffeeDto:UpdateCoffeDto
         }
-        else if (otherID.includes(body.categoryID)){
+        else if (otherID.includes(body.categoryID)||body.categoryID===undefined){
             dtoClass = method === 'POST'?CreateProductdto:UpdatedProductdto
         }else{
             throw new BadRequestException(`Categoría: ${body.categoryID}, no reconocida`);

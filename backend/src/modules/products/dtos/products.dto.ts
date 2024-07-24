@@ -71,5 +71,5 @@ export class UpdatedProductdto {
 
     @IsOptional()
     @IsString() 
-    category: string;
+    categoryID?: string;
 }
