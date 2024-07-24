@@ -2,7 +2,7 @@
     {
         "article_id": 156,
         "description": "Portasobres",
-        "imgUrl" :"-",
+        "imgUrl" :"http://www.cafelaesmeralda.com.ar/img/por1.jpg",
         "price" : 2500,
         "stock": 92,
         "category":"accesorio"

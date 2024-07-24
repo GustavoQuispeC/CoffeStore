@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Order } from "./order.entity";
 import { Transaccion } from "./transaction.entity";
 
@@ -9,6 +9,9 @@ export class OrderDetail {
 
     @Column({default:"tienda"})
     adressDelivery:string
+
+    @Column({type: 'timestamp'})
+    deliveryDate:Date
 
     @Column()
     totalPrice: number
@@ -22,4 +25,10 @@ export class OrderDetail {
 
     @OneToMany(()=>Transaccion,(transaccion)=> transaccion.orderdetail)
     transactions : Transaccion[]
-}
+
+    @BeforeInsert()
+    setDefaultEventDate() {
+            const currentDate = new Date();
+            this.deliveryDate = new Date(currentDate.setDate(currentDate.getDate() + 7));
+        }
+    }

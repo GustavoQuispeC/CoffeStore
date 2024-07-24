@@ -188,7 +188,7 @@ export class PreloadService implements OnModuleInit{
         const response = await this.orderService.addOrder(users[0].id,[
             {id:product_1[0].id, cantidad:2},
             {id:product_2[0].id, cantidad:3}
-        ],"tienda",0)
+        ],"tienda",0,undefined)
         
         console.log("se cargo preorder por defecto")
     }

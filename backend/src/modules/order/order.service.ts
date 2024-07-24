@@ -24,15 +24,22 @@ export class OrderService {
         private readonly dataSource: DataSource
     ){}
 
-    async GetAll(){
+    async getAll(){
         return await this.orderQuery.getOrders()
     }
 
-    async GetById(id:string){
-        return await this.orderQuery.getOrder(id);
+    async getById(id:string){
+        
+        const foundOrder = await this.orderQuery.getOrder(id);
+        if(!foundOrder) throw new NotFoundException(`No se encontro order id: ${id}`)
+        return foundOrder
     }
 
-    async addOrder(userId:string, productsInfo:ProductInfo[],adress:undefined|string, cupoDescuento:undefined|number){
+    async getByUserId(id:string){
+        return await this.orderQuery.getByUserId(id)
+    }
+
+    async addOrder(userId:string, productsInfo:ProductInfo[],adress:undefined|string, cupoDescuento:undefined|number,deliveryDate:undefined|Date){
         
         let total = 0 ; 
         let createdOrder;
@@ -83,7 +90,8 @@ export class OrderService {
                 totalPrice: Number(total.toFixed(2)),
                 order: newOrder,
                 cupoDescuento:cupoDescuento? cupoDescuento:0,
-                adressDelivery:adress? adress:"tienda"
+                adressDelivery:adress? adress:"tienda",
+                deliveryDate
             });
                     
             await transactionalEntityManager.save(OrderDetail, orderDetail);

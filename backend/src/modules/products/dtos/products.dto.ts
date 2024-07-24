@@ -35,8 +35,8 @@ export class CreateProductdto{
     isAvailable?: boolean;
 
     @IsNotEmpty()
-    @IsString() 
-    category: string;
+    @IsUUID() 
+    categoryID: string;
 }
 
 
@@ -71,5 +71,5 @@ export class UpdatedProductdto {
 
     @IsOptional()
     @IsString() 
-    category: string;
+    categoryID?: string;
 }
