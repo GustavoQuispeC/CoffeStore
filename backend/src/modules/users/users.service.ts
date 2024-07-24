@@ -34,13 +34,15 @@ export class UsersService {
         newUser = await this.userRepository.create(userDTO);
     }
 
+    newUser.role = Role.USER;
+
     return await this.userRepository.save(newUser);
     
 }
 
     async signIn(email: string, password: string) {
     const user = await this.userRepository.findOneBy({ email });
-    let userRoles: Role[]
+    let userRoles: Role[] = [user.role];
     
     if (!user) throw new NotFoundException('Invalid credentials');
 
@@ -74,10 +76,6 @@ export class UsersService {
     const accessToken = this.jwtService.sign(payload);
 
     return { success : 'User logged in successfully', accessToken, user}
-
-    // if (!user.password) return user;
-
-    // throw new NotFoundException('Credenciales inválidas');
     }
 
     async getUserById(id: string): Promise<User | undefined> {
