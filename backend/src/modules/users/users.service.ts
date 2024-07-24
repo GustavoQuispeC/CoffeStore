@@ -55,7 +55,7 @@ export class UsersService {
 
         const accessToken = this.jwtService.sign(payload);
 
-        return { success: 'External user logged in successfully', accessToken };
+        return { success: 'External user logged in successfully', accessToken, user };
     }
     const isPasswordValid = await bcrypt.compare(password, user.password);
     
@@ -73,7 +73,7 @@ export class UsersService {
     
     const accessToken = this.jwtService.sign(payload);
 
-    return { success : 'User logged in successfully', accessToken}
+    return { success : 'User logged in successfully', accessToken, user}
 
     // if (!user.password) return user;
 
