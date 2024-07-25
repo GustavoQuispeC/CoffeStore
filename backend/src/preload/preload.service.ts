@@ -1,4 +1,4 @@
-import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
 import { Category } from 'src/entities/category.entity';
 import { Product } from 'src/entities/products/product.entity';
@@ -20,7 +20,7 @@ import { Endulzante } from 'src/entities/products/product-endulzante.entity';
 import { Accesorio } from 'src/entities/products/product-accesorio.entity';
 import { User } from 'src/entities/user.entity';
 import { OrderService } from 'src/modules/order/order.service';
-
+import * as bcrypt from 'bcrypt';
 @Injectable()
 export class PreloadService implements OnModuleInit{
     private repositories: { [key: string]: {repository:Repository<any>,class:any} };
@@ -169,6 +169,12 @@ export class PreloadService implements OnModuleInit{
     async addDefaultUser(dataUser){
         
         await Promise.all(dataUser.map(async (user)=>{
+            if (user.password) {
+                const hashedPassword = await bcrypt.hash(user.password, 10);
+                if (!hashedPassword) throw new BadRequestException('Error hashing password');
+                user.password = hashedPassword;
+            }
+            
             const objUser = this.userRepository.create({
                 ...user
             })
