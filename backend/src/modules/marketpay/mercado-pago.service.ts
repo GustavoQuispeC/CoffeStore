@@ -21,9 +21,12 @@ export class MercadoPagoService {
 
   async createPayment(createPaymentDto: CreatePaymentDto): Promise<any> {
     try {
+
+      const items = createPaymentDto.items || [];
+
       const response = await this.preference.create({
         body: {
-          items: createPaymentDto.items.map(item => ({
+          items: items.map(item => ({
               title: item.title,
               description: item.description,
               quantity: item.quantity,

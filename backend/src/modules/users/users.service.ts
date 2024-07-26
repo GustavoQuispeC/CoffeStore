@@ -83,7 +83,7 @@ export class UsersService {
     
     const accessToken = this.jwtService.sign(payload);
 
-    return { success : 'User logged in successfully', accessToken, user}
+    return { success : 'User logged in successfully', accessToken}
     }
 
     async getUserById(id: string): Promise<User | undefined> {
