@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
 import { Role } from 'src/enum/roles.enum';
 import { UserDTO } from './users.dto';
+import { timeStamp } from 'console';
 
 @Injectable()
 export class UsersService {
@@ -42,15 +43,19 @@ export class UsersService {
 
     async signIn(email: string, password: string) {
     const user = await this.userRepository.findOneBy({ email });
+    if (!user) throw new NotFoundException('Invalid credentials');
     let userRoles: Role[] = [user.role];
     
     if (!user) throw new NotFoundException('Invalid credentials');
 
     if (!user.password) {
-        const payload = { 
-            email: user.email, 
+        const payload = {
+            name: user.name, 
+            email: user.email,
+            password: user.password,
+            phone: user.phone, 
             sub: user.id,
-            roles: [userRoles],
+            roles: userRoles,
             isAvailable: user.isAvailable,
             isDeleted: user.isDeleted  
         };
