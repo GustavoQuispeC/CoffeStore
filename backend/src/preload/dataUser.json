@@ -10,6 +10,12 @@
     "password":"123#abc2",
     "phone":"987567123",
     "role":"admin"
+    },
+    {"name":"client01",
+    "email":"client01@gmail.com",
+    "password":"123#abc2",
+    "phone":"987567123",
+    "role":"client"
     }
 
 ]
