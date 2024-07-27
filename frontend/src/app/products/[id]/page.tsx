@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Spinner } from "@material-tailwind/react";
 import Link from "next/link";
@@ -84,7 +84,7 @@ const ProductDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
   const handleAddToCart = () => {
     const cart = JSON.parse(localStorage.getItem("cart") || "[]");
     const cartItemIndex = cart.findIndex(
-      (item: IProductList) => item.article_id === productId
+      (item: IProductList) => item.id === productId
     );
 
     if (cartItemIndex !== -1) {
@@ -134,11 +134,15 @@ const ProductDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
             if (userSession) {
               const token = JSON.parse(userSession).userData.accessToken;
               const decodedToken: DecodedToken = jwtDecode(token);
-              console.log("decodedToken", decodedToken);
-              const userId = decodedToken.userId;
+              const userId = decodedToken.sub;
+              const products = cart.map((item: IProductList) => ({
+                id: item.id,
+                cantidad: item.quantity,
+              }));
+              console.log(userId, products);
 
               try {
-                await createStorageOrder({ userId, products: cart });
+                await createStorageOrder({ userId, products });
                 console.log("Storage order created successfully");
               } catch (error) {
                 console.error("Error creating storage order:", error);
